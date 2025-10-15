@@ -4,8 +4,7 @@ from urllib.parse import urlparse
 import logging
 
 import redis
-
-from open_webui.env import REDIS_SENTINEL_MAX_RETRY_COUNT
+from open_webui.env import REDIS_SENTINEL_MAX_RETRY_COUNT, REDIS_SENTINEL_PASSWORD
 
 log = logging.getLogger(__name__)
 
@@ -138,6 +137,7 @@ def get_redis_connection(
                 redis_sentinels,
                 port=redis_config["port"],
                 db=redis_config["db"],
+                sentinel_kwargs={"password": REDIS_SENTINEL_PASSWORD} if REDIS_SENTINEL_PASSWORD else {},
                 username=redis_config["username"],
                 password=redis_config["password"],
                 decode_responses=decode_responses,
@@ -164,6 +164,7 @@ def get_redis_connection(
                 redis_sentinels,
                 port=redis_config["port"],
                 db=redis_config["db"],
+                sentinel_kwargs={"password": REDIS_SENTINEL_PASSWORD} if REDIS_SENTINEL_PASSWORD else {},
                 username=redis_config["username"],
                 password=redis_config["password"],
                 decode_responses=decode_responses,
